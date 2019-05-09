@@ -113,6 +113,8 @@ namespace exeLoader {
         PPEB lpPeb = reinterpret_cast<PPEB>(RegisterContext.Ebx);
 #elif defined(_M_X64)
         PPEB lpPeb = reinterpret_cast<PPEB>(RegisterContext.Rdx);
+#else
+#error "Unsupported architecture"
 #endif
         PVOID ImageBase;
 
@@ -218,6 +220,8 @@ namespace exeLoader {
         NewConext.Eax = reinterpret_cast<DWORD>(NewEntryPoint);
 #elif defined(_M_X64)
         NewConext.Rcx = reinterpret_cast<DWORD64>(NewEntryPoint);
+#else
+#error "Unsupported architecture"
 #endif
         if (!SetThreadContext(hThread, &NewConext)) {
             return GetLastError();
